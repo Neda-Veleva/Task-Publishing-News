@@ -27,18 +27,23 @@ class UserController extends BaseController {
             if ($validator->fails()) {
                 return Redirect::to('account/create')->withErrors($validator)->withInput()->with('message', 'Невалидни данни!');
             }
-            /**
-             * model/User
-             */
+            
+            //model/User
 	    User::newUser($data);
             return Redirect::to('/account/login')->with('message', 'Регистрацията е успешна! Моля влезте в профила си!');
 	}
         
+        /**
+         * Show Login Form
+         */
         public function getLogin()
 	{
 	    return View::make('users.login');
 	}
         
+        /**
+         * Authentication
+         */
         public function postLogin()
 	{
 	    $data = Input::all();
@@ -73,6 +78,9 @@ class UserController extends BaseController {
            }
 	}
         
+        /**
+         * Log Out
+         */
         public function logout() {
             $message = 'Вие сте извън системата!';
             if(Auth::check()){
